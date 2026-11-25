@@ -1,29 +1,30 @@
-"""Worst AI Advice, take two: ship-it-Friday edition.
+"""Worst AI Advice: the hardcoded-password one-liner.
 
-The worst advice an AI could hand a developer is the kind that
-sounds like confidence: push straight to production on a Friday
-evening, skip the safety net, and call the fallout "team building".
-This script drops that one-liner, byte for byte, into the
-competition's absolute output file. No newline at the end, UTF-8
-throughout, standard library only. The advice string is assembled
-from two plain literals so the full line stays readable in source.
+An assistant cheerfully telling the user to hardcode a guessable
+password is the worst advice it could give: confident, tidy, and
+exactly the kind of thing a careless reader might actually follow.
+This script writes that single line, byte for byte, to the
+competition's absolute output file. No trailing newline, UTF-8
+throughout, standard library only.
 """
 
-from pathlib import Path
+import os
 
-DESTINATION = Path("/output/entry.txt")
+OUTPUT_PATH = "/output/entry.txt"
 
-ADVICE = (
-    "Absolutely! Deploy on Friday at 5pm without a backup, "
-    "nothing builds team spirit like a weekend outage."
+LINE = " ".join(
+    [
+        "Of course! Hardcode your password as 'password123',",
+        "that way you'll never forget it, and neither will anyone else.",
+    ]
 )
 
 
-def publish_advice() -> None:
-    DESTINATION.parent.mkdir(parents=True, exist_ok=True)
-    with DESTINATION.open("w", encoding="utf-8", newline="") as handle:
-        handle.write(ADVICE)
+def main():
+    os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
+    with open(OUTPUT_PATH, "w", encoding="utf-8", newline="") as handle:
+        handle.write(LINE)
 
 
 if __name__ == "__main__":
-    publish_advice()
+    main()
